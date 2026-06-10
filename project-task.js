@@ -45,37 +45,32 @@ Step 4: Test Your Solution
 function processFile(fileName, fileData) {
   try {
     // TODO: Add input validation here
-    let nameInvalid = (typeof fileName !== "string" || fileName.trim() === "" || !fileName.endsWith('.txt') || !isNaN(Number(fileName)));
-    let fileDataInvalid = (typeof fileData !== "string" || fileData.trim() === "");
-
-    if (nameInvalid){
-
-      throw new Error (`File name may be missing or the Data Type is not correct. Please review "${fileName}" and try again`);
-
+    if (typeof fileName === 'string' && typeof fileData !== 'string') {
+      throw new Error (`File Data type invalid`);
     }
-    if (fileDataInvalid){
-      console.log("Opening resources...");
-      throw new Error("File does not contain a string. Please review the file and try again");
-
+    else if (fileName === "" || fileName === null || fileName === undefined){
+      throw new Error (`No file name entered`);
     }
-
-  
+    else if (fileData === "" || fileData === null || fileData === undefined){
+      throw new Error (`No file data entered`);
+    }
+    else {
     // TODO: Implement simulated file processing here
-    console.log("Opening resources...");
     console.log(`Processing file: ${fileName}`);
     console.log(`File content: ${fileData}`);
-      
-    // TODO: Add simulated file operations (reading/writing)
-    console.log(`Reading from file.`);
-    console.log(`Writing to file. `);
     
+    // TODO: Add simulated file operations (reading/writing)
+    console.log(`Reading file`);
+    console.log(`Writing file content`)
+    }
   } catch (err) {
     // TODO: Implement error handling
     console.error(err.message);
-  } finally {                 // TODO: Implement a finally block to close resources
-       console.log("Closing resources...");
   }
-  
+  // TODO: Implement a finally block to close resources
+  finally {
+    console.log (`Closing program.`)
+  }
 }
 
 // ============================================
@@ -84,9 +79,6 @@ function processFile(fileName, fileData) {
 
 processFile(); // ❌ ReferenceError: File name is missing
 processFile("myFile.txt", 42); // ❌ TypeError: File data must be a string
+processFile("", "42");
 processFile("myFile.txt", ""); // ❌ Error: File data cannot be empty
-processFile("myFile.txt.pdf", ""); // ❌ Error: File data cannot be empty
 processFile("myFile.txt", "Hello, world!"); // ✅ Should process successfully
-processFile("Mine.txt", "This file has text!"); // ✅ Should process successfully
-processFile("Yours.txt", -102); // ❌ TypeError: File data must be a string
-
